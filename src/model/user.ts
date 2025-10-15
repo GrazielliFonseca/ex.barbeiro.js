@@ -18,4 +18,30 @@ export class User {
 
 static create(nome:string, telefone: string, email: string, senha: string, idade?: number) {
     const id = crypto.randomUUID();
-    
+    return new User(id, nome, telefone, email, senha, idade);
+}
+
+getId(): string {
+    return this.id;
+}
+
+getNome(): string {
+    return this.nome;
+}
+
+getTelefone(): string {
+    return this.telefone;
+}
+
+getIdade(): number | undefined {
+    return this.idade;
+}
+
+getEmail(): string {
+    return this.email;
+}
+getSenha(): string {
+    return this.senha;
+
+ }
+}
