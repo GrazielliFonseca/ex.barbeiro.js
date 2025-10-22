@@ -75,9 +75,10 @@ static create( nomeMedicamento: string,
  estoqueMaximo: number,
  localizacao: string,
  lote: string,
-         observacoes: string){
+ observacoes: string){
     const id = crypto.randomUUID();
-    return new Servico(id, nome, preco, tempoEstimado);
+    return new Medicamento(nomeMedicamento,
+ principioAtivo, concentracao, formaFarmaceutica, indicacoesUso, efeitosAdversos, dosagemPadrao, interacoesMedicamentosas, codigoEstoque, quantidadeDisponivel, localizacaoFisica, dataValidadeLote, fabricante, formadeAdministracao, medicamentoControlado, requerRefrigeracao, medicamentoGenerico, posologia, precoUnitario, estoqueMinimo, estoqueMaximo, localizacao, lote, observacoes);
 }
 
 getNomeMedicamento(): string {

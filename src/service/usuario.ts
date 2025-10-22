@@ -1,5 +1,5 @@
 import { userInfo } from "os";
-import { User } from "../model/user";
+import { User } from "../model/usuario";
 
 export class UserService {
   lista: User[] = [];

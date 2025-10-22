@@ -1,6 +1,6 @@
-import { User } from "../model/user";
+import { User } from "../model/usuario";
 import { app } from "../server";
-import { UserService } from "../service/user";
+import { UserService } from "../service/usuario";
 
 export function UserController() {
   const list: User[] = [];

@@ -1,6 +1,6 @@
 import { Servico } from "../model/medicamento";
 import { app } from "../server";
-import { ServicoService } from "../service/servico";
+import { ServicoService } from "../service/solicitacao";
 
 export function ServicoController() {
   const list: Servico[] = [];

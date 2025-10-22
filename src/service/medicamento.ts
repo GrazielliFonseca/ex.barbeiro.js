@@ -1,5 +1,5 @@
 import { Agendamento } from "../model/agendamento";
-import { User } from "../model/user";
+import { User } from "../model/usuario";
 import { Barbeiro } from "../model/barbeiro";
 import { Servico } from "../model/medicamento";
 

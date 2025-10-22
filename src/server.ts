@@ -1,7 +1,7 @@
 import express from 'express';
 import { UserController} from './controller/user';
-import { ServicoController } from './controller/servico';
-import { BarbeiroController } from './controller/barbeiro';
+import { ServicoController } from './controller/medicamento';
+import { BarbeiroController } from './controller/solicitacao';
 import { AgendamentoController } from './controller/agendamento';
 
 export const app = express();
