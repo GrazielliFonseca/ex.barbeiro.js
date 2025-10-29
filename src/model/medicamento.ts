@@ -33,9 +33,9 @@ export class Medicamento {
     return this.informacoes;
   }
 
-  public getStatusEstoque(): 'Baixo' | 'Normal' | 'Crítico' {
-    if (this.estoque === undefined || this.estoque < 0) {
-      return 'Normal';
+  public getStatusEstoque(): 'Baixo' | 'Normal' | 'Crítico' | 'Esgotado' {
+    if (this.estoque <= 0) {
+      return 'Esgotado';
     }
 
     if (this.estoque <= 10) {

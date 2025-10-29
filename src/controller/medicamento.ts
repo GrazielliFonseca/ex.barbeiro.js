@@ -20,34 +20,11 @@ export function MedicamentoController(app: any) {
         const dados = req.body;
         
         try {
-            const novoMedicamento = Medicamento.create(
+            const novoMedicamento = medicamentoService.criarMedicamento(
                 dados.nomeMedicamento,
-                dados.principioAtivo,
-                dados.concentracao,
-                dados.formaFarmaceutica,
-                dados.indicacoes,
-                dados.efeitosColaterais,
-                dados.dosagem,
-                dados.interacoesMedicamentosas,
-                dados.codigoBarras,
-                new Date(dados.dataValidade), 
-                dados.fabricante,
-                dados.formadeAdministracao,
-                dados.medicamentoControlado || false,
-                dados.requerRefrigeracao || false,
-                dados.medicamentoGenerico || false,
-                dados.posologia,
                 dados.estoque,
-                dados.localizacao,
-                dados.lote,
-                dados.observacoes,
-                dados.contradicoes, 
-                dados.categoria,
-                dados.estoqueMinimo || 0,
-                dados.estoqueMaximo || 0
+                dados.informacoes 
             );
-
-            medicamentoService.getTodosMedicamentos().push(novoMedicamento); 
 
             res.status(201).json(novoMedicamento);
         } catch (error) {
@@ -102,8 +79,8 @@ export function MedicamentoController(app: any) {
     app.get("/medicamentos/status", (req: any, res: any) => {
         const { status } = req.query;
 
-        if (!status || (status !== 'Crítico' && status !== 'Baixo' && status !== 'Normal')) {
-            return res.status(400).json({ message: "O parâmetro 'status' é obrigatório e deve ser 'Crítico', 'Baixo' ou 'Normal'." });
+        if (!status || (status !== 'Crítico' && status !== 'Baixo' && status !== 'Normal' && status !== 'Esgotado')) {
+            return res.status(400).json({ message: "O parâmetro 'status' é obrigatório e deve ser 'Crítico', 'Baixo', 'Normal' ou Esgotado." });
         }
         
         const medicamentosFiltrados = medicamentoService.getTodosMedicamentos().filter(med => 

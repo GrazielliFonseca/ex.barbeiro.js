@@ -40,4 +40,10 @@ export default class MedicamentoService {
     
     return false;
   }
+  
+  public criarMedicamento(nomeMedicamento: string, estoque: number, informacoes: string): Medicamento {
+    const novoMedicamento = Medicamento.create(nomeMedicamento, estoque, informacoes);
+    this.lista.push(novoMedicamento);
+    return novoMedicamento;
+  }
 }
