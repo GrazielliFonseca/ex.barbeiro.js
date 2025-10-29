@@ -1,29 +1,57 @@
-import { Servico } from "../model/medicamento";
+import { Solicitacao } from "../model/solicitacao";
 
-export class ServicoService{
-    lista: Servico[] = [];
+type SolicitacaoStatus = "Pendente" | "Aprovada" | "Rejeitada";
 
-    constructor(public armazenamento: Servico[]) {
+export class SolicitacaoService {
+    lista: Solicitacao[] = [];
+
+    constructor(public armazenamento: Solicitacao[]) {
         this.lista = armazenamento;
     }
 
-    createServico(servico: {
-      nome: string;
-      preco: number;
-      tempoEstimado: number;
-    }): Servico {
-        const uuid = crypto.randomUUID();
-        const servicoCreated = new Servico(
-            uuid,
-            servico.nome,
-            servico.preco,
-            servico.tempoEstimado
-        );
-        this.lista.push(servicoCreated);
-        return servicoCreated
+createSolicitacao(solicitacao: {
+    pacienteId: string,
+    medicoId: string,
+    medicamentoId: string,
+    descricaoPaciente: string,
+    dataHoraSolicitacao: Date,
+    status: SolicitacaoStatus,
+    farmaceuticoId: string
+}): Solicitacao {
+    const solicitacaoCreated = Solicitacao.create(
+        solicitacao.pacienteId,
+        solicitacao.medicoId,
+        solicitacao.medicamentoId,
+        solicitacao.descricaoPaciente,
+        solicitacao.dataHoraSolicitacao,
+        solicitacao.status,
+        solicitacao.farmaceuticoId
+    );
+    this.lista.push(solicitacaoCreated);
+    return solicitacaoCreated;
+}
+
+getSolicitacao(): Solicitacao[] {
+    return this.lista;
+}
+
+AtualizacaoStatus(solicitacaoId: string, novoStatus: SolicitacaoStatus, farmaceuticoId: string): Solicitacao | undefined {
+    const solicitacao = this.lista.find(s => s.getId() === solicitacaoId);
+
+    if (!solicitacao) {
+        return undefined;
     }
 
-    getServicos(): Servico[] {
-        return this.lista;
-    }
+    solicitacao.setStatus(novoStatus);
+    solicitacao.setFarmaceuticoId(farmaceuticoId);
+
+    return solicitacao;
+}
+getSolicitacoesPendentes(): Solicitacao[] {
+    return this.lista.filter(s => s.getStatus() === "Pendente");
+}
+    
+getSolicitacoesPorPaciente(pacienteId: string): Solicitacao[] {
+    return this.lista.filter(s => s.getPacienteId() === pacienteId);
+}
 }

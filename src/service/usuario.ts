@@ -1,40 +1,70 @@
-import { userInfo } from "os";
-import { User } from "../model/usuario";
+import { Usuario } from "../model/usuario";
 
-export class UserService {
-  lista: User[] = [];
+export default class UsuarioService {
+  lista: Usuario[] = [];
 
-  constructor(public armazenamento: User[]) {
+  constructor(public armazenamento: Usuario[]) {
     this.lista = armazenamento;
   }
 
-  createUser(user: {
+  createUsuario(usuario: {
     nome: string;
-    telefone: string;
-    email: string;
+    tipo: string;
+    idade: number;
     senha: string;
-    idade?: number;
-  }): User {
-    const userCreated = User.create(
-        user.nome,
-        user.telefone,
-        user.email,
-        user.senha,
-        user.idade
+    email: string;
+  }): Usuario {
+    const usuarioCreated = Usuario.create(
+        usuario.nome,
+        usuario.tipo,
+        usuario.idade,
+        usuario.senha,
+        usuario.email
     );
-    this.lista.push(userCreated);
-    return userCreated
-  }
+    this.lista.push(usuarioCreated);
+    return usuarioCreated
+   }
 
-  getUsers(): User[] {
+  public getUsuario(): Usuario[] {
     return this.lista
   }
 
-  getUserByNome(nome: string): User | undefined {
-    return this.lista.find(user) => user.getNome() === nome);
+  public getUsuarioByNome(nome: string): Usuario | undefined {
+    return this.lista.find((user: Usuario) => user.getNome() === nome);
   }
 
-  getUserByIdade(idade: number): User | undefined {
-    return this.lista.findIndex(user) => userInfo.getIdade() === idade);
+  public getUsuarioByEmail(email: string): Usuario | undefined {
+    return this.lista.find((user: Usuario) => user.getEmail() === email);
+  }
+
+  public autenticar(email: string, senhaDigitada: string): Usuario | undefined {
+    const usuario = this.getUsuarioByEmail(email);
+
+    if (usuario && usuario.getSenha() === senhaDigitada) {
+      return usuario;
+    }
+
+    return undefined;
+  }
+
+  public getUsuarioByTipo(tipo: string): Usuario[] {
+    return this.lista.filter((user: Usuario) => user.getTipo() === tipo);
+  }
+  
+  public getMedicos(): Usuario[] {
+    return this.getUsuarioByTipo("Médico");
+  }
+
+  public validarPermissao(usuario: Usuario, permissaoNecessaria: string): boolean {
+    const tipo = usuario.getTipo();
+
+    switch (permissaoNecessaria) {
+      case 'acessoTotal':
+        return tipo === 'Admin';
+      case 'visualizarProntuario':
+        return tipo === 'Médico' || tipo === 'Enfermeiro' || tipo === 'Admin';
+      default:
+        return false;
+    }
   }
 }

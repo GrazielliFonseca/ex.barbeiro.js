@@ -1,160 +1,65 @@
 export class Medicamento {
   constructor(
+    private id: string,
     private nomeMedicamento: string,
-        private principioAtivo: string,
-        private concentracao: string,
-        private formaFarmaceutica: string,
-        private indicacoesUso: string,
-        private efeitosAdversos: string,
-        private dosagemPadrao: string,
-        private interacoesMedicamentosas: string,
-        private codigoEstoque: string,
-        private quantidadeDisponivel: number,
-        private localizacaoFisica: string,
-        private dataValidadeLote: Date,
-        private fabricante: string,
-        private formadeAdministracao: string,
-        private medicamentoControlado: boolean,
-        private requerRefrigeracao: boolean,
-        private medicamentoGenerico: boolean,
-        private posologia: string,
-        private precoUnitario: number,
-        private estoqueMinimo: number,
-        private estoqueMaximo: number,
-        private localizacao: string,
-        private lote: string,
-        private observacoes: string
-
-  ){
-    if (nomeMedicamento) throw new Error('Nome obrigatório..');
-    if (principioAtivo) throw new Error ('Principio Ativo Obrigatório.');
-    if (concentracao) throw new Error('Concentração Obrigatório.');
-    if (formaFarmaceutica)  throw new Error('Forma Farmaceutica Obrigatória.')
-    if (indicacoesUso) throw new Error('Indicações Obrigatórias.') 
-    if (efeitosAdversos) throw new Error('Efeitos Adversos Obrigatórios.')
-    if (dosagemPadrao) throw new Error('Dosagem Padrão Obrigatória.')
-    if (interacoesMedicamentosas) throw new Error('O campo "interacoesMedicamentosas" não pode ser vazio.')
-    if (codigoEstoque) throw new Error('Codigo do Estoque Obrigatório.')
-    if (quantidadeDisponivel) throw new Error('Quantidade Disponível Obrigatória.')
-    if (localizacaoFisica) throw new Error('Localização Inválida.')
-    if (dataValidadeLote) throw new Error('Data de Validade inválida.')
-    if (fabricante) throw new Error('Fabricante Obrigatório.')
-    if (medicamentoControlado) throw new Error('Medicamento Controlado Obrigatório.')
-    if (requerRefrigeracao) throw new Error('Refrigeração Obrigatória.')
-    if (medicamentoControlado) throw new Error('Medicamento Controlado Obrigatório.')
-    if (medicamentoGenerico) throw new Error('Medicamento Genérico Obrigatório.')
-    if (posologia) throw new Error('Posologia Obrigatória.')
-    if (precoUnitario) throw new Error('Preço Unitário Obrigatório.')
-    if (estoqueMinimo) throw new Error('Estoque Minimo Obrigatório.')
-    if (estoqueMaximo) throw new Error('Estoque Máximo Obrigatório')
-    if (localizacao) throw new Error('Localizção Obrigatório')
-    if (lote) throw new Error('Lote Obrigatório')
-    if (observacoes) throw new Error ('Observações obrigatórias')
+    private estoque: number,
+    private informacoes: string
+  ) {
+    if (!nomeMedicamento) throw new Error('Nome obrigatório..');
+    if (!informacoes) throw new Error('Informações obrigatório');
+    if (estoque === undefined || estoque === null || estoque < 0)
+      throw new Error('Estoque Obrigatório e deve ser um valor maior que zero.');
   }
 
-static create( nomeMedicamento: string,
- principioAtivo: string,
- concentracao: string,
- formaFarmaceutica: string,
- indicacoesUso: string,
- efeitosAdversos: string,
- dosagemPadrao: string,
- interacoesMedicamentosas: string,
- codigoEstoque: string,
- quantidadeDisponivel: number,
- localizacaoFisica: string,
- dataValidadeLote: Date,
- fabricante: string,
- formadeAdministracao: string,
- medicamentoControlado: boolean,
- requerRefrigeracao: boolean,
- medicamentoGenerico: boolean,
- posologia: string,
- precoUnitario: number,
- estoqueMinimo: number,
- estoqueMaximo: number,
- localizacao: string,
- lote: string,
- observacoes: string){
-    const id = crypto.randomUUID();
-    return new Medicamento(nomeMedicamento,
- principioAtivo, concentracao, formaFarmaceutica, indicacoesUso, efeitosAdversos, dosagemPadrao, interacoesMedicamentosas, codigoEstoque, quantidadeDisponivel, localizacaoFisica, dataValidadeLote, fabricante, formadeAdministracao, medicamentoControlado, requerRefrigeracao, medicamentoGenerico, posologia, precoUnitario, estoqueMinimo, estoqueMaximo, localizacao, lote, observacoes);
-}
+  static create(
+    nomeMedicamento: string,
+    estoque: number,
+    informacoes: string
+  ) {
+    const id = crypto.randomUUID(); 
+    return new Medicamento(id, nomeMedicamento, estoque, informacoes);
+  }
 
-getNomeMedicamento(): string {
+  public getId(): string {
+    return this.id;
+  }
+  public getEstoque(): number {
+    return this.estoque;
+  }
+  public getNomeMedicamento(): string {
     return this.nomeMedicamento;
-}
+  }
+  public getInformacoes(): string {
+    return this.informacoes;
+  }
 
-getPrincipioAtivo(): string {
-    return this.principioAtivo;
-}
+  public getStatusEstoque(): 'Baixo' | 'Normal' | 'Crítico' {
+    if (this.estoque === undefined || this.estoque < 0) {
+      return 'Normal';
+    }
 
-getConcentracao(): string {
-    return this.concentracao;
-}
+    if (this.estoque <= 10) {
+      return 'Crítico';
+    }
 
-getFormaFarmaceutica(): string {
-    return this.formaFarmaceutica;
-}
+    if (this.estoque <= 20) {
+      return 'Baixo';
+    }
 
-getIndicacoesUso(): string {
-    return this.indicacoesUso;
-}
-getEfeitosAdversos(): string {
-    return this.efeitosAdversos;
-}
-getDosagemParao(): string {
-    return this.dosagemPadrao;
-}
-getInteracoesMedicamentosas(): string {
-    return this.interacoesMedicamentosas;
-}
-getCodigoEstoque(): string {
-    return this.codigoEstoque;
-}
-getQuantidadeDisponivel():number  {
-    return this.quantidadeDisponivel;
-}
-getLocalizacaoFisica(): string  {
-    return this.localizacaoFisica;
-}
-getDataValidadeLote(): Date {
-    return this.dataValidadeLote;
-}
-getFabricante(): string {
-    return this.fabricante;
-}
-getFormadeAdministracao(): string {
-    return this.formadeAdministracao;
-}
-getMedicamentoControlado(): boolean  {
-    return this.medicamentoControlado;
-}
-getRequerReffrigeracao(): boolean  {
-    return this.requerRefrigeracao;
-}
-getMedicamentoGenerico(): boolean  {
-    return this.medicamentoGenerico;
-}
-getPosologia(): string {
-    return this.posologia;
-}
-getPrecoUnitario(): number {
-    return this.precoUnitario;
-}
-getEstoqueMinimo(): number {
-    return this.estoqueMinimo;
-}
-getEstoqueMaximo(): number{
-    return this.estoqueMaximo;
-}
-getLocalizacao(): string {
-    return this.localizacao;
-}
-getLote(): string {
-    return this.lote;
-}
-getObservacoes():string {
-    return this.observacoes;
-}
+    return 'Normal';
+  }
+
+  public darBaixa(quantidade: number): void {
+    if (quantidade > 0 && this.estoque >= quantidade) {
+      this.estoque -= quantidade;
+    } else if (quantidade > this.estoque) {
+      console.error('Erro: Quantidade solicitada maior que o estoque.');
+    }
+  }
+
+  public adicionarEstoque(quantidade: number): void {
+    if (quantidade > 0) {
+      this.estoque += quantidade;
+    }
+  }
 }

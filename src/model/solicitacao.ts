@@ -1,39 +1,59 @@
-export class Barbeiro {
+export class Solicitacao {
     constructor(
         private id: string,
-        private nome: string,
-        private diasTrabalho: string[],
-        private horaInicio: string,
-        private horaFim: string
+        private pacienteId: string,
+        private medicoId: string,
+        private medicamentoId: string,
+        private descricaoPaciente: string,
+        private dataHoraSolicitacao: Date,
+        private status: string,
+        private farmaceuticoId: string
+
     ){
-        if (!nome) throw new Error("nome obrigatório");
-        if (!diasTrabalho || diasTrabalho.length === 0) throw new Error("diasTrabalho obrigatório");
-        if (!horaInicio) throw new Error("horaInicio obrigatório");
-        if (!horaFim) throw new Error("horaFim obrigatórrio");
-        if (nome.length < 3 ) throw new Error('nome muito curto')
+        if (!id) throw new Error("id obrigatório");
+        if (!pacienteId) throw new Error("Paciente obrigatório");
+        if (!medicoId) throw new Error("Médico obrigatório");
+        if (!medicamentoId) throw new Error('Medicamento obrigatório')
+        if (!descricaoPaciente) throw new Error ('Descrição obrigatória')
     }
- static create(nome: string, diasTrabalho: string[], horaInicio: string, horaFim: string){
+ static create(pacienteId:string, medicoId:string, medicamentoId:string, descricaoPaciente:string, dataHoraSolicitacao:Date, status:string, farmaceuticoId:string){
     const id = crypto.randomUUID();
-    return new Barbeiro(id, nome, diasTrabalho, horaInicio, horaFim);
+    return new Solicitacao(id,pacienteId,medicoId,medicamentoId,descricaoPaciente,dataHoraSolicitacao,status,farmaceuticoId);
  }
 
- getId(): string {
-    return this.id;
+public getId(): string {
+   return this.id;
+ }
+public getPacienteId(): string {
+    return this.pacienteId;
  }
 
- getNome(): string {
-    return this.nome;
+public getMedicoId(): string {
+    return this.medicoId;
  }
 
- getDiasTrabalho(): string[] {
-    return this.diasTrabalho;
+public getMedicamentoId(): string {
+    return this.medicamentoId;
  }
 
- getHoraInicio(): string {
-    return this.horaInicio;
+public getDescricaoPaciente(): string {
+    return this.descricaoPaciente;
+}
+public getDataHoraSolicitacao(): Date {
+    return this.dataHoraSolicitacao;
+ }
+public getStatus(): string {
+    return this.status;
+ }
+public  getFarmaceuticoId(): string {
+    return this.farmaceuticoId;
  }
 
-getHoraFim(): string {
-    return this.horaFim;
+public setStatus(novoStatus: string): void {
+    this.status = novoStatus;
+}
+
+public setFarmaceuticoId(novoFarmaceuticoId: string): void {
+    this.farmaceuticoId = novoFarmaceuticoId;
 }
 }

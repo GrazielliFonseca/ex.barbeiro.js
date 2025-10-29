@@ -1,47 +1,47 @@
+
+import bcrypt from "bcryptjs";
+
 export class Usuario {
   constructor(
     private id: string,
     private nome: string,
-    private telefone: string,
-    private email: string,
+    private tipo: string,
+    private idade: number,
     private senha: string,
-    private idade?: number
+    private email: string
   ) {
     if (!nome) throw new Error('Nome obrigatório');
-    if (!telefone) throw new Error('Telefone obrigatório');
-    if (!email) throw new Error('Email obrigatório');
+    if (!tipo) throw new Error('Tipo obrigatório');
+    if (idade === null || idade === undefined) throw new Error('Idade obrigatória');
     if (!senha) throw new Error('Senha obrigatória');
+    if (!email) throw new Error('Email obrigatório');
+  }
 
-    if (nome.length < 3) throw new Error("Nome muito curto")
-    if (senha.charAt.length < 6) throw new Error("Senha muito curta");
-}
-
-static create(nome:string, telefone: string, email: string, senha: string, idade?: number) {
+static create(nome:string, tipo: string, idade: number, senha: string, email: string) {
     const id = crypto.randomUUID();
-    return new User(id, nome, telefone, email, senha, idade);
+    const hashedPassword = bcrypt.hashSync(senha);
+    return new Usuario(id, nome, tipo, idade, senha, email);
 }
+verifyPassword(senha: string): boolean {
+    return bcrypt.compareSync(senha, this.senha);
+  }
 
-getId(): string {
+public getId(): string {
     return this.id;
 }
-
-getNome(): string {
+public getNome(): string {
     return this.nome;
 }
-
-getTelefone(): string {
-    return this.telefone;
+public getTipo(): string {
+    return this.tipo;
 }
-
-getIdade(): number | undefined {
+public getIdade(): number { 
     return this.idade;
 }
-
-getEmail(): string {
+public getSenha(): string {
+    return this.senha;
+}
+public getEmail(): string{
     return this.email;
 }
-getSenha(): string {
-    return this.senha;
-
- }
 }
