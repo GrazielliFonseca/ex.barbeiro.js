@@ -1,12 +1,13 @@
 import { Medicamento } from "../model/medicamento";
+import { app } from "../server";
 import MedicamentoService from "../service/medicamento";
 
 const mockMedicamentos: Medicamento[] = []; 
 const medicamentoService = new MedicamentoService(mockMedicamentos);
 
-export function MedicamentoController(app: any) { 
+export function MedicamentoController() { 
 
-    app.get("/medicamentos", (req: any, res: any) => {
+    app.get("/medicamentos", (req, res) => {
         try {
             const medicamentos = medicamentoService.getTodosMedicamentos();
             res.status(200).json(medicamentos);
@@ -16,7 +17,7 @@ export function MedicamentoController(app: any) {
         }
     });
 
-    app.post("/medicamentos", (req: any, res: any) => {
+    app.post("/medicamentos", (req, res) => {
         const dados = req.body;
         
         try {
@@ -32,11 +33,11 @@ export function MedicamentoController(app: any) {
         }
     });
 
-    app.get("/medicamentos/:id", (req: any, res: any) => {
+    app.get("/medicamentos/:id", (req , res) => {
         const { id } = req.params; 
 
         try {
-            const medicamento = medicamentoService.getMedicamentoPorId(id);
+            const medicamento = medicamentoService.getMedicamentoPorId(id); 
 
             if (medicamento) {
                 return res.status(200).json(medicamento);
@@ -49,7 +50,7 @@ export function MedicamentoController(app: any) {
         }
     });
     
-    app.patch("/medicamentos/:id/baixa", (req: any, res: any) => {
+    app.patch("/medicamentos/:id/baixa", (req , res ) => {
         const { id } = req.params;
         const { quantidade } = req.body;
         
@@ -76,7 +77,7 @@ export function MedicamentoController(app: any) {
         }
     });
 
-    app.get("/medicamentos/status", (req: any, res: any) => {
+    app.get("/medicamentos/status", (req, res) => {
         const { status } = req.query;
 
         if (!status || (status !== 'Crítico' && status !== 'Baixo' && status !== 'Normal' && status !== 'Esgotado')) {

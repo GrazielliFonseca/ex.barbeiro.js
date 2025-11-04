@@ -21,7 +21,8 @@ export function SolicitacaoController() {
   app.post("/solicitacoes", (req, res) => {
     try {
       const solicitacaoData = req.body as {
-        pacienteId: string,
+        nomePaciente: string,
+        idadePaciente: number,
         medicoId: string,
         medicamentoId: string,
         descricaoPaciente: string,

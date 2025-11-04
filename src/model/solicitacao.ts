@@ -1,7 +1,8 @@
 export class Solicitacao {
     constructor(
         private id: string,
-        private pacienteId: string,
+        private nomePaciente: string,
+        private idadePaciente: number,
         private medicoId: string,
         private medicamentoId: string,
         private descricaoPaciente: string,
@@ -11,21 +12,26 @@ export class Solicitacao {
 
     ){
         if (!id) throw new Error("id obrigatório");
-        if (!pacienteId) throw new Error("Paciente obrigatório");
+        if (!nomePaciente) throw new Error("Paciente obrigatório");
+        if (!idadePaciente) throw new Error('Idade obrigatória')
         if (!medicoId) throw new Error("Médico obrigatório");
         if (!medicamentoId) throw new Error('Medicamento obrigatório')
         if (!descricaoPaciente) throw new Error ('Descrição obrigatória')
     }
- static create(pacienteId:string, medicoId:string, medicamentoId:string, descricaoPaciente:string, dataHoraSolicitacao:Date, status:string, farmaceuticoId:string){
+ static create(nomePaciente:string, idadePaciente:number, medicoId:string, medicamentoId:string, descricaoPaciente:string, dataHoraSolicitacao:Date, status:string, farmaceuticoId:string){
     const id = crypto.randomUUID();
-    return new Solicitacao(id,pacienteId,medicoId,medicamentoId,descricaoPaciente,dataHoraSolicitacao,status,farmaceuticoId);
+    return new Solicitacao(id,nomePaciente,idadePaciente,medicoId,medicamentoId,descricaoPaciente,dataHoraSolicitacao,status,farmaceuticoId);
  }
 
 public getId(): string {
    return this.id;
  }
-public getPacienteId(): string {
-    return this.pacienteId;
+public getNomePaciente(): string {
+    return this.nomePaciente;
+ }
+
+ public getIdadePaciente(): number{
+    return this.idadePaciente
  }
 
 public getMedicoId(): string {

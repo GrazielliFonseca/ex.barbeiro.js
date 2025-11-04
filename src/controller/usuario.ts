@@ -10,9 +10,9 @@ export function UsuarioController() {
     
     app.post("/usuarios", async (req: Request, res: Response) => {
         try {
-            const { nome, tipo, idade, senha, email } = req.body;
+            const { nome, tipo, senha, email } = req.body;
 
-            if (!nome || !tipo || !idade || !senha || !email) {
+            if (!nome || !tipo || !senha || !email) {
                 return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
             }
             
@@ -23,7 +23,6 @@ export function UsuarioController() {
             const novoUsuario: Usuario = usuarioService.createUsuario({
                 nome,
                 tipo,
-                idade,
                 senha,
                 email,
             });
@@ -47,7 +46,6 @@ export function UsuarioController() {
             id: usuario.getId(),
             nome: usuario.getNome(),
             tipo: usuario.getTipo(),
-            idade: usuario.getIdade(),
             email: usuario.getEmail(),
         }));
         

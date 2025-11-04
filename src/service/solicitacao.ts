@@ -10,7 +10,8 @@ export class SolicitacaoService {
     }
 
 createSolicitacao(solicitacao: {
-    pacienteId: string,
+    nomePaciente: string,
+    idadePaciente: number,
     medicoId: string,
     medicamentoId: string,
     descricaoPaciente: string,
@@ -19,7 +20,8 @@ createSolicitacao(solicitacao: {
     farmaceuticoId: string
 }): Solicitacao {
     const solicitacaoCreated = Solicitacao.create(
-        solicitacao.pacienteId,
+        solicitacao.nomePaciente,
+        solicitacao.idadePaciente,
         solicitacao.medicoId,
         solicitacao.medicamentoId,
         solicitacao.descricaoPaciente,
@@ -52,6 +54,6 @@ getSolicitacoesPendentes(): Solicitacao[] {
 }
     
 getSolicitacoesPorPaciente(pacienteId: string): Solicitacao[] {
-    return this.lista.filter(s => s.getPacienteId() === pacienteId);
+    return this.lista.filter(s => s.getNomePaciente() === pacienteId);
 }
 }

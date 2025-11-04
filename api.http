@@ -1,0 +1,103 @@
+### USUÁRIOS
+
+### Listar todos os usuários
+GET http://localhost:3000/usuarios
+
+###
+
+### Criar usuário
+POST http://localhost:3000/usuarios
+content-type: application/json
+
+{
+    "nome": "Grazi",
+    "tipo": "farmaceutico",
+    "email": "grazi@gmail.com",
+    "senha": "pedro@gmail.com"
+}
+
+###
+
+### login usuário
+POST http://localhost:3000/usuarios/login
+content-type: application/json
+
+{
+  "id": "001",
+  "nome": "Pedro Mendes",
+  "tipo": "Médico",
+  "email": "pedro@gmail.com"
+}
+
+###
+
+### Tipo usuário
+GET http://localhost:3000/usuarios/tipo/Médico
+
+### Buscar Usuario
+GET http://localhost:3000/usuarios/buscar
+
+
+###
+
+### Autenticar usuário
+POST http://localhost:3000/usuarios/autenticacao
+content-type: application/json
+
+{
+  "email": "joao@email.com",
+  "senha": "senha123"
+}
+
+###
+
+### Buscar usuários por nome (retorna lista)
+GET http://localhost:3000/usuarios/buscar?nome=PedroMendes
+
+###
+
+### Buscar usuários por email (retorna lista)
+GET http://localhost:3000/usuarios/buscar?email=pedro@gmail.com
+
+### MEDICAMENTOS
+
+### Criar Medicamentos
+POST http://localhost:3000/medicamentos
+content-type: application/json
+
+{
+ "dados": "nomeMedicamento",
+ "dados": "estoque",
+ "dados": "informacoes",
+}
+
+### Buscar medicamento por id e mensagem de erro se não achar 
+GET http://localhost:3000/medicamentos/:id
+
+### Dar baixa no estoque do medicamento pelo id do mesmo
+GET http://localhost:3000/medicamentos/:id
+
+### Status do estoque
+GET http://localhost:3000/medicamentos/status
+
+
+###SOLICITAÇÃO
+
+### Status de erro
+GET http://localhost:3000//solicitacoes
+
+###Criar Solicitação
+POST http://localhost:3000/solicitacoes
+content-type: application/json
+
+{
+  "nomePaciente": "joao",
+  "idadePaciente": "20",
+  "medicoId": "",
+  "medicamentoId": "",
+  "descricaoPaciente": "",
+  "dataHoraSolcitacao": "",
+  "status": "",
+  "farmaceuticoId": ""
+
+}

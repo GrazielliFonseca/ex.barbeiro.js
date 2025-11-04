@@ -10,14 +10,12 @@ export default class UsuarioService {
   createUsuario(usuario: {
     nome: string;
     tipo: string;
-    idade: number;
     senha: string;
     email: string;
   }): Usuario {
     const usuarioCreated = Usuario.create(
         usuario.nome,
         usuario.tipo,
-        usuario.idade,
         usuario.senha,
         usuario.email
     );
@@ -30,11 +28,11 @@ export default class UsuarioService {
   }
 
   public getUsuarioByNome(nome: string): Usuario | undefined {
-    return this.lista.find((user: Usuario) => user.getNome() === nome);
+    return this.lista.find((usuario: Usuario) => usuario.getNome() === nome);
   }
 
   public getUsuarioByEmail(email: string): Usuario | undefined {
-    return this.lista.find((user: Usuario) => user.getEmail() === email);
+    return this.lista.find((usuario: Usuario) => usuario.getEmail() === email);
   }
 
   public autenticar(email: string, senhaDigitada: string): Usuario | undefined {
@@ -48,7 +46,7 @@ export default class UsuarioService {
   }
 
   public getUsuarioByTipo(tipo: string): Usuario[] {
-    return this.lista.filter((user: Usuario) => user.getTipo() === tipo);
+    return this.lista.filter((usuario: Usuario) => usuario.getTipo() === tipo);
   }
   
   public getMedicos(): Usuario[] {
