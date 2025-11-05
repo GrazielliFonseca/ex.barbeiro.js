@@ -49,10 +49,10 @@ export function SolicitacaoController() {
     }
   });
 
-  app.get("/solicitacoes/paciente/:pacienteId", (req, res) => {
+  app.get("/solicitacoes/paciente/:nomePaciente", (req, res) => {
     try {
-      const { pacienteId } = req.params;
-      const solicitacoes = service.getSolicitacoesPorPaciente(pacienteId);
+      const { nomePaciente } = req.params;
+      const solicitacoes = service.getSolicitacoesPorPaciente(nomePaciente);
 
       if (solicitacoes.length === 0) {
         return res.status(404).json({ message: "Nenhuma solicitação encontrada para este paciente." });

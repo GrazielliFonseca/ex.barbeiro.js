@@ -18,10 +18,10 @@ export class Usuario {
 static create(nome:string, tipo: string, senha: string, email: string) {
     const id = crypto.randomUUID();
     const hashedPassword = bcrypt.hashSync(senha);
-    return new Usuario(id, nome, tipo, senha, email);
+    return new Usuario(id, nome, tipo, hashedPassword, email);
 }
-verifyPassword(senha: string): boolean {
-    return bcrypt.compareSync(senha, this.senha);
+verifyPassword(senhaDigitada: string): boolean {
+    return bcrypt.compareSync(senhaDigitada, this.senha);
   }
 
 public getId(): string {

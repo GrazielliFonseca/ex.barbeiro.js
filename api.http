@@ -11,9 +11,9 @@ content-type: application/json
 
 {
     "nome": "Grazi",
-    "tipo": "farmaceutico",
+    "tipo": "Farmacêutico",
     "email": "grazi@gmail.com",
-    "senha": "pedro@gmail.com"
+    "senha": "senha123"
 }
 
 ###
@@ -23,31 +23,16 @@ POST http://localhost:3000/usuarios/login
 content-type: application/json
 
 {
-  "id": "001",
-  "nome": "Pedro Mendes",
-  "tipo": "Médico",
-  "email": "pedro@gmail.com"
+    "email": "grazi@gmail.com",
+    "senha": "33"
 }
 
 ###
 
 ### Tipo usuário
-GET http://localhost:3000/usuarios/tipo/Médico
-
-### Buscar Usuario
-GET http://localhost:3000/usuarios/buscar
+GET http://localhost:3000/usuarios/tipo/Farmacêutico
 
 
-###
-
-### Autenticar usuário
-POST http://localhost:3000/usuarios/autenticacao
-content-type: application/json
-
-{
-  "email": "joao@email.com",
-  "senha": "senha123"
-}
 
 ###
 
@@ -61,18 +46,22 @@ GET http://localhost:3000/usuarios/buscar?email=pedro@gmail.com
 
 ### MEDICAMENTOS
 
-### Criar Medicamentos
+### Criar/cadastrar Medicamentos
 POST http://localhost:3000/medicamentos
 content-type: application/json
 
 {
- "dados": "nomeMedicamento",
- "dados": "estoque",
- "dados": "informacoes",
+ "nomeMedicamento": "nomeMedicamento",
+ "estoque": "estoque",
+ "informacoes": "informacoes"
 }
 
+### Criar/cadastrar Medicamentos
+GET http://localhost:3000/medicamentos
+
+
 ### Buscar medicamento por id e mensagem de erro se não achar 
-GET http://localhost:3000/medicamentos/:id
+GET http://localhost:3000/medicamentos/1a5216b5-1f77-4255-9d88-43b7c35ea45c
 
 ### Dar baixa no estoque do medicamento pelo id do mesmo
 GET http://localhost:3000/medicamentos/:id
@@ -83,8 +72,8 @@ GET http://localhost:3000/medicamentos/status
 
 ###SOLICITAÇÃO
 
-### Status de erro
-GET http://localhost:3000//solicitacoes
+### Status de erro ao buscar solicitações
+GET http://localhost:3000/solicitacoes
 
 ###Criar Solicitação
 POST http://localhost:3000/solicitacoes
@@ -93,11 +82,25 @@ content-type: application/json
 {
   "nomePaciente": "joao",
   "idadePaciente": "20",
-  "medicoId": "",
-  "medicamentoId": "",
-  "descricaoPaciente": "",
-  "dataHoraSolcitacao": "",
-  "status": "",
-  "farmaceuticoId": ""
+  "medicoId": "oi",
+  "medicamentoId": "oi",
+  "descricaoPaciente": "Dor e Febre",
+  "status": "pendentes",
+  "farmaceuticoId": "oi"
 
+}
+
+### Status ao buscar solicitações pendentes
+GET http://localhost:3000/solicitacoes/pendentes
+
+### Status ao buscar solicitações por nome do paciente
+GET http://localhost:3000/solicitacoes/paciente/joao
+
+### Atualização de status da solicitação
+PUT http://localhost:3000/solicitacoes/2ad52bd9-96d3-4762-b702-be5c498f6cf7/status
+content-type: application/json
+
+{
+  "novoStatus": "Aprovada",
+  "farmaceuticoId": "oi"
 }

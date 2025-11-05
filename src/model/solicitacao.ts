@@ -6,10 +6,9 @@ export class Solicitacao {
         private medicoId: string,
         private medicamentoId: string,
         private descricaoPaciente: string,
-        private dataHoraSolicitacao: Date,
+        private data: Date,
         private status: string,
-        private farmaceuticoId: string
-
+        private farmaceuticoId: string,
     ){
         if (!id) throw new Error("id obrigatório");
         if (!nomePaciente) throw new Error("Paciente obrigatório");
@@ -18,9 +17,10 @@ export class Solicitacao {
         if (!medicamentoId) throw new Error('Medicamento obrigatório')
         if (!descricaoPaciente) throw new Error ('Descrição obrigatória')
     }
- static create(nomePaciente:string, idadePaciente:number, medicoId:string, medicamentoId:string, descricaoPaciente:string, dataHoraSolicitacao:Date, status:string, farmaceuticoId:string){
+ static create(nomePaciente:string, idadePaciente:number, medicoId:string, medicamentoId:string, descricaoPaciente:string, status:string, farmaceuticoId:string){
     const id = crypto.randomUUID();
-    return new Solicitacao(id,nomePaciente,idadePaciente,medicoId,medicamentoId,descricaoPaciente,dataHoraSolicitacao,status,farmaceuticoId);
+    const now = new Date()
+    return new Solicitacao(id,nomePaciente,idadePaciente,medicoId,medicamentoId,descricaoPaciente,now,status,farmaceuticoId);
  }
 
 public getId(): string {
@@ -45,9 +45,7 @@ public getMedicamentoId(): string {
 public getDescricaoPaciente(): string {
     return this.descricaoPaciente;
 }
-public getDataHoraSolicitacao(): Date {
-    return this.dataHoraSolicitacao;
- }
+
 public getStatus(): string {
     return this.status;
  }

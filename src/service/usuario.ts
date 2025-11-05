@@ -6,7 +6,6 @@ export default class UsuarioService {
   constructor(public armazenamento: Usuario[]) {
     this.lista = armazenamento;
   }
-
   createUsuario(usuario: {
     nome: string;
     tipo: string;
@@ -38,7 +37,7 @@ export default class UsuarioService {
   public autenticar(email: string, senhaDigitada: string): Usuario | undefined {
     const usuario = this.getUsuarioByEmail(email);
 
-    if (usuario && usuario.getSenha() === senhaDigitada) {
+    if (usuario && usuario.verifyPassword(senhaDigitada)) {
       return usuario;
     }
 
@@ -51,6 +50,10 @@ export default class UsuarioService {
   
   public getMedicos(): Usuario[] {
     return this.getUsuarioByTipo("Médico");
+  }
+  
+  public getUsuarioPorId(id: string): Usuario | undefined {
+    return this.lista.find((usuario: Usuario) => usuario.getId() === id);
   }
 
   public validarPermissao(usuario: Usuario, permissaoNecessaria: string): boolean {

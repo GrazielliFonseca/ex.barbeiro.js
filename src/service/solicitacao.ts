@@ -9,13 +9,16 @@ export class SolicitacaoService {
         this.lista = armazenamento;
     }
 
+    public getSolicitacaoPorId(id: string): Solicitacao | undefined {
+        return this.lista.find(s => s.getId() === id);
+    }
+
 createSolicitacao(solicitacao: {
     nomePaciente: string,
     idadePaciente: number,
     medicoId: string,
     medicamentoId: string,
     descricaoPaciente: string,
-    dataHoraSolicitacao: Date,
     status: SolicitacaoStatus,
     farmaceuticoId: string
 }): Solicitacao {
@@ -25,7 +28,6 @@ createSolicitacao(solicitacao: {
         solicitacao.medicoId,
         solicitacao.medicamentoId,
         solicitacao.descricaoPaciente,
-        solicitacao.dataHoraSolicitacao,
         solicitacao.status,
         solicitacao.farmaceuticoId
     );
