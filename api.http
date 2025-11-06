@@ -24,7 +24,7 @@ content-type: application/json
 
 {
     "email": "grazi@gmail.com",
-    "senha": "33"
+    "senha": "senha123"
 }
 
 ###
@@ -33,16 +33,13 @@ content-type: application/json
 GET http://localhost:3000/usuarios/tipo/Farmacêutico
 
 
-
-###
-
 ### Buscar usuários por nome (retorna lista)
-GET http://localhost:3000/usuarios/buscar?nome=PedroMendes
+GET http://localhost:3000/usuarios/buscar?nome=Grazi
 
 ###
 
 ### Buscar usuários por email (retorna lista)
-GET http://localhost:3000/usuarios/buscar?email=pedro@gmail.com
+GET http://localhost:3000/usuarios/buscar?email=grazi@gmail.com
 
 ### MEDICAMENTOS
 
