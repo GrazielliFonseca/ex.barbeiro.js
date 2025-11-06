@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for file in GerenciarSolicitacoes.tsx CriarSolicitacao.tsx CadastrarMedicamento.tsx GerenciarUsuarios.tsx)",
+      "Bash(do sed -i 's/<SidebarProvider>//g; s/<\\/SidebarProvider>//g' \"$file\")",
+      "Bash(done)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
