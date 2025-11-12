@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 export class Medicamento {
   constructor(
     private id: string,
@@ -16,7 +18,7 @@ export class Medicamento {
     estoque: number,
     informacoes: string
   ) {
-    const id = crypto.randomUUID(); 
+    const id = randomUUID(); 
     return new Medicamento(id, nomeMedicamento, estoque, informacoes);
   }
 

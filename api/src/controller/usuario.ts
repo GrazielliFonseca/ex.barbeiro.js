@@ -10,7 +10,7 @@ export { usuarioService as servicoUsuario };
 
 export function UsuarioController() {
     
-    app.post("/usuarios", async (req: Request, res: Response) => {
+    app.post("/api/usuarios", async (req: Request, res: Response) => {
         try {
             const { nome, tipo, senha, email } = req.body;
 
@@ -41,7 +41,7 @@ export function UsuarioController() {
         }
     });
 
-    app.get("/usuarios", (req: Request, res: Response) => {
+    app.get("/api/usuarios", (req: Request, res: Response) => {
         const lista = usuarioService.getUsuario();
 
         const listaSegura = lista.map(usuario => ({
@@ -54,7 +54,7 @@ export function UsuarioController() {
         return res.status(200).json(listaSegura);
     });
     
-    app.post("/usuarios/login", (req: Request, res: Response) => {
+    app.post("/api/usuarios/login", (req: Request, res: Response) => {
         const { email, senha } = req.body;
 
         if (!email || !senha) {
@@ -78,7 +78,7 @@ export function UsuarioController() {
         });
     });
 
-    app.get("/usuarios/tipo/:tipo", (req: Request, res: Response) => {
+    app.get("/api/usuarios/tipo/:tipo", (req: Request, res: Response) => {
         const tipoBusca: string = req.params.tipo;
 
         const listaPorTipo = usuarioService.getUsuarioByTipo(tipoBusca);
@@ -97,7 +97,7 @@ export function UsuarioController() {
         return res.status(200).json(listaSegura);
     });
 
-    app.get("/usuarios/buscar", (req: Request, res: Response) => {
+    app.get("/api/usuarios/buscar", (req: Request, res: Response) => {
         const { nome, email } = req.query;
 
         if (nome) {

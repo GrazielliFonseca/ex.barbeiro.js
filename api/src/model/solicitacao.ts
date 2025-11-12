@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 export class Solicitacao {
     constructor(
         private id: string,
@@ -18,7 +20,7 @@ export class Solicitacao {
         if (!descricaoPaciente) throw new Error ('Descrição obrigatória')
     }
  static create(nomePaciente:string, idadePaciente:number, medicoId:string, medicamentoId:string, descricaoPaciente:string, status:string, farmaceuticoId:string){
-    const id = crypto.randomUUID();
+    const id = randomUUID();
     const now = new Date()
     return new Solicitacao(id,nomePaciente,idadePaciente,medicoId,medicamentoId,descricaoPaciente,now,status,farmaceuticoId);
  }

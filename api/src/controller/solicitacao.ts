@@ -8,7 +8,7 @@ export function SolicitacaoController() {
   const list: Solicitacao[] = [];
   const service = new SolicitacaoService(list);
 
-  app.get("/solicitacoes", (req, res) => {
+  app.get("/api/solicitacoes", (req, res) => {
     try {
       const solicitacoes = service.getSolicitacao();
       res.json(solicitacoes);
@@ -18,7 +18,7 @@ export function SolicitacaoController() {
     }
   });
 
-  app.post("/solicitacoes", (req, res) => {
+  app.post("/api/solicitacoes", (req, res) => {
     try {
       const solicitacaoData = req.body as {
         nomePaciente: string,
@@ -39,7 +39,7 @@ export function SolicitacaoController() {
     }
   });
 
-  app.get("/solicitacoes/pendentes", (req, res) => {
+  app.get("/api/solicitacoes/pendentes", (req, res) => {
     try {
       const pendentes = service.getSolicitacoesPendentes();
       res.status(200).json(pendentes);
@@ -49,7 +49,7 @@ export function SolicitacaoController() {
     }
   });
 
-  app.get("/solicitacoes/paciente/:nomePaciente", (req, res) => {
+  app.get("/api/solicitacoes/paciente/:nomePaciente", (req, res) => {
     try {
       const { nomePaciente } = req.params;
       const solicitacoes = service.getSolicitacoesPorPaciente(nomePaciente);
@@ -65,7 +65,7 @@ export function SolicitacaoController() {
     }
   });
 
-  app.put("/solicitacoes/:id/status", (req, res) => {
+  app.put("/api/solicitacoes/:id/status", (req, res) => {
     try {
       const { id } = req.params;
       const { novoStatus, farmaceuticoId } = req.body as { novoStatus: SolicitacaoStatus, farmaceuticoId: string };

@@ -7,7 +7,7 @@ const medicamentoService = new MedicamentoService(mockMedicamentos);
 
 export function MedicamentoController() { 
 
-    app.get("/medicamentos", (req, res) => {
+    app.get("/api/medicamentos", (req, res) => {
         try {
             const medicamentos = medicamentoService.getTodosMedicamentos();
             res.status(200).json(medicamentos);
@@ -17,7 +17,7 @@ export function MedicamentoController() {
         }
     });
 
-    app.post("/medicamentos", (req, res) => {
+    app.post("/api/medicamentos", (req, res) => {
         const dados = req.body;
         
         try {
@@ -33,7 +33,7 @@ export function MedicamentoController() {
         }
     });
 
-    app.get("/medicamentos/:id", (req , res) => {
+    app.get("/api/medicamentos/:id", (req , res) => {
         const { id } = req.params; 
 
         try {
@@ -50,7 +50,7 @@ export function MedicamentoController() {
         }
     });
     
-    app.patch("/medicamentos/:id/baixa", (req , res ) => {
+    app.patch("/api/medicamentos/:id/baixa", (req , res ) => {
         const { id } = req.params;
         const { quantidade } = req.body;
         
@@ -77,7 +77,7 @@ export function MedicamentoController() {
         }
     });
 
-    app.get("/medicamentos/status", (req, res) => {
+    app.get("/api/medicamentos/status", (req, res) => {
         const { status } = req.query;
 
         if (!status || (status !== 'Crítico' && status !== 'Baixo' && status !== 'Normal' && status !== 'Esgotado')) {
