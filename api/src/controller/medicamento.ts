@@ -3,7 +3,7 @@ import { app } from "../server";
 import MedicamentoService from "../service/medicamento";
 
 const mockMedicamentos: Medicamento[] = []; 
-const medicamentoService = new MedicamentoService(mockMedicamentos);
+const medicamentoService = new MedicamentoService();
 
 export function MedicamentoController() { 
 

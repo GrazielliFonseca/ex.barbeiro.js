@@ -3,9 +3,7 @@ import { Medicamento } from "../model/medicamento";
 export default class MedicamentoService {
   lista: Medicamento[] = [];
 
-  constructor(public armazenamento: Medicamento[]) {
-    this.lista = armazenamento;
-  }
+  constructor() {}
 
   public getTodosMedicamentos(): Medicamento[] {
     return this.lista;

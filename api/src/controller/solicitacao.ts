@@ -5,8 +5,7 @@ import { SolicitacaoService } from "../service/solicitacao";
 type SolicitacaoStatus = "Pendente" | "Aprovada" | "Rejeitada";
 
 export function SolicitacaoController() {
-  const list: Solicitacao[] = [];
-  const service = new SolicitacaoService(list);
+  const service = new SolicitacaoService();
 
   app.get("/api/solicitacoes", (req, res) => {
     try {

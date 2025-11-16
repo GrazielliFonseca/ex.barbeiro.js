@@ -1,12 +1,14 @@
 import { Solicitacao } from "../model/solicitacao";
+import MedicamentoService from "./medicamento";
 
 type SolicitacaoStatus = "Pendente" | "Aprovada" | "Rejeitada";
 
 export class SolicitacaoService {
     lista: Solicitacao[] = [];
+    medicamento = new MedicamentoService();
 
-    constructor(public armazenamento: Solicitacao[]) {
-        this.lista = armazenamento;
+
+    constructor() {
     }
 
     public getSolicitacaoPorId(id: string): Solicitacao | undefined {
@@ -31,6 +33,7 @@ createSolicitacao(solicitacao: {
         solicitacao.status,
         solicitacao.farmaceuticoId
     );
+    this.medicamento.darBaixaEmEstoque(solicitacao.medicamentoId,1)
     this.lista.push(solicitacaoCreated);
     return solicitacaoCreated;
 }

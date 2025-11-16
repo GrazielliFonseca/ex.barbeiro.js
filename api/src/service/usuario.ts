@@ -52,6 +52,10 @@ export default class UsuarioService {
     return this.getUsuarioByTipo("Médico");
   }
   
+  public getFarmaceuticos(): Usuario[] {
+    return this.getUsuarioByTipo("Farmacêutico");
+  }
+  
   public getUsuarioPorId(id: string): Usuario | undefined {
     return this.lista.find((usuario: Usuario) => usuario.getId() === id);
   }
