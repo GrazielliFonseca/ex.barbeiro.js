@@ -1,9 +1,17 @@
 import { Medicamento } from "../model/medicamento";
 
 export default class MedicamentoService {
+  private static instance: MedicamentoService;
   lista: Medicamento[] = [];
 
-  constructor() {}
+  private constructor() {}
+
+  public static getInstance(): MedicamentoService {
+    if (!MedicamentoService.instance) {
+      MedicamentoService.instance = new MedicamentoService();
+    }
+    return MedicamentoService.instance;
+  }
 
   public getTodosMedicamentos(): Medicamento[] {
     return this.lista;

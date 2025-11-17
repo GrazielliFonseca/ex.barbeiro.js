@@ -1,12 +1,14 @@
-import { Medicamento } from "../model/medicamento";
-import { app } from "../server";
-import MedicamentoService from "../service/medicamento";
-
-const medicamentoService = MedicamentoService.getInstance();
-
-export function MedicamentoController() { 
-
-    app.get("/api/medicamentos", (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MedicamentoController = MedicamentoController;
+const server_1 = require("../server");
+const medicamento_1 = __importDefault(require("../service/medicamento"));
+const medicamentoService = medicamento_1.default.getInstance();
+function MedicamentoController() {
+    server_1.app.get("/api/medicamentos", (req, res) => {
         try {
             const medicamentos = medicamentoService.getTodosMedicamentos();
             const medicamentosComStatus = medicamentos.map(med => ({
@@ -17,22 +19,16 @@ export function MedicamentoController() {
                 statusEstoque: med.getStatusEstoque()
             }));
             res.status(200).json(medicamentosComStatus);
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Erro ao listar medicamentos:", error);
             res.status(500).json({ message: "Erro interno do servidor." });
         }
     });
-
-    app.post("/api/medicamentos", (req, res) => {
+    server_1.app.post("/api/medicamentos", (req, res) => {
         const dados = req.body;
-
         try {
-            const novoMedicamento = medicamentoService.criarMedicamento(
-                dados.nomeMedicamento,
-                dados.estoque,
-                dados.informacoes
-            );
-
+            const novoMedicamento = medicamentoService.criarMedicamento(dados.nomeMedicamento, dados.estoque, dados.informacoes);
             res.status(201).json({
                 id: novoMedicamento.getId(),
                 nomeMedicamento: novoMedicamento.getNomeMedicamento(),
@@ -40,17 +36,15 @@ export function MedicamentoController() {
                 informacoes: novoMedicamento.getInformacoes(),
                 statusEstoque: novoMedicamento.getStatusEstoque()
             });
-        } catch (error) {
-            res.status(400).json({ message: (error as Error).message });
+        }
+        catch (error) {
+            res.status(400).json({ message: error.message });
         }
     });
-
-    app.get("/api/medicamentos/:id", (req , res) => {
+    server_1.app.get("/api/medicamentos/:id", (req, res) => {
         const { id } = req.params;
-
         try {
             const medicamento = medicamentoService.getMedicamentoPorId(id);
-
             if (medicamento) {
                 return res.status(200).json({
                     id: medicamento.getId(),
@@ -60,69 +54,55 @@ export function MedicamentoController() {
                     statusEstoque: medicamento.getStatusEstoque()
                 });
             }
-
             return res.status(404).json({ message: `Medicamento com ID '${id}' não encontrado.` });
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Erro ao buscar medicamento por ID:", error);
             res.status(500).json({ message: "Erro interno do servidor." });
         }
     });
-    
-    app.patch("/api/medicamentos/:id/baixa", (req , res ) => {
+    server_1.app.patch("/api/medicamentos/:id/baixa", (req, res) => {
         const { id } = req.params;
         const { quantidade } = req.body;
-        
         if (typeof quantidade !== 'number' || quantidade <= 0) {
             return res.status(400).json({ message: "A quantidade para baixa deve ser um número positivo." });
         }
-
         const sucesso = medicamentoService.darBaixaEmEstoque(id, quantidade);
-
         if (sucesso) {
             const estoqueAtual = medicamentoService.verificarEstoque(id);
-            res.status(200).json({ 
-                message: `Baixa de ${quantidade} unidades realizada.`, 
-                estoqueAtual: estoqueAtual 
+            res.status(200).json({
+                message: `Baixa de ${quantidade} unidades realizada.`,
+                estoqueAtual: estoqueAtual
             });
-        } else {
+        }
+        else {
             const medicamento = medicamentoService.getMedicamentoPorId(id);
             if (!medicamento) {
                 return res.status(404).json({ message: `Medicamento com ID '${id}' não encontrado.` });
             }
-            return res.status(400).json({ 
-                message: `Estoque insuficiente. Estoque atual: ${medicamento.getEstoque()}.` 
+            return res.status(400).json({
+                message: `Estoque insuficiente. Estoque atual: ${medicamento.getEstoque()}.`
             });
         }
     });
-
-    app.get("/api/medicamentos/status", (req, res) => {
+    server_1.app.get("/api/medicamentos/status", (req, res) => {
         const { status } = req.query;
-
         if (!status || (status !== 'Crítico' && status !== 'Baixo' && status !== 'Normal' && status !== 'Esgotado')) {
             return res.status(400).json({ message: "O parâmetro 'status' é obrigatório e deve ser 'Crítico', 'Baixo', 'Normal' ou Esgotado." });
         }
-
-        const medicamentosFiltrados = medicamentoService.getTodosMedicamentos().filter(med =>
-             med.getStatusEstoque() === status
-        );
-
+        const medicamentosFiltrados = medicamentoService.getTodosMedicamentos().filter(med => med.getStatusEstoque() === status);
         if (medicamentosFiltrados.length > 0) {
             return res.status(200).json(medicamentosFiltrados);
         }
-
         return res.status(404).json({ message: `Nenhum medicamento encontrado com status '${status}'.` });
     });
-
-    app.patch("/api/medicamentos/:id/adicionar", (req, res) => {
+    server_1.app.patch("/api/medicamentos/:id/adicionar", (req, res) => {
         const { id } = req.params;
         const { quantidade } = req.body;
-
         if (typeof quantidade !== 'number' || quantidade <= 0) {
             return res.status(400).json({ message: "A quantidade deve ser um número positivo." });
         }
-
         const sucesso = medicamentoService.adicionarEstoque(id, quantidade);
-
         if (sucesso) {
             const medicamento = medicamentoService.getMedicamentoPorId(id);
             res.status(200).json({
@@ -130,7 +110,8 @@ export function MedicamentoController() {
                 estoqueAtual: medicamento?.getEstoque(),
                 statusEstoque: medicamento?.getStatusEstoque()
             });
-        } else {
+        }
+        else {
             return res.status(404).json({ message: `Medicamento com ID '${id}' não encontrado.` });
         }
     });

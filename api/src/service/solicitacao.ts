@@ -5,7 +5,7 @@ type SolicitacaoStatus = "Pendente" | "Aprovada" | "Rejeitada";
 
 export class SolicitacaoService {
     lista: Solicitacao[] = [];
-    medicamento = new MedicamentoService();
+    medicamento = MedicamentoService.getInstance();
 
 
     constructor() {
