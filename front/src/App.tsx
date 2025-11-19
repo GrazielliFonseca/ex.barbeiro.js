@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Medicamentos from "./pages/Medicamentos";
+import HelpDesk from "./pages/Helpdesk";
 import Estoque from "./pages/Estoque";
 import CriarSolicitacao from "./pages/CriarSolicitacao";
 import MinhasSolicitacoes from "./pages/MinhasSolicitacoes";
@@ -31,46 +32,78 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/dashboard" element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              } />
-              <Route path="/medicamentos" element={
-                <ProtectedRoute>
-                  <Medicamentos />
-                </ProtectedRoute>
-              } />
-              <Route path="/estoque" element={
-                <ProtectedRoute>
-                  <Estoque />
-                </ProtectedRoute>
-              } />
-              <Route path="/criar-solicitacao" element={
-                <ProtectedRoute>
-                  <CriarSolicitacao />
-                </ProtectedRoute>
-              } />
-              <Route path="/minhas-solicitacoes" element={
-                <ProtectedRoute>
-                  <MinhasSolicitacoes />
-                </ProtectedRoute>
-              } />
-              <Route path="/gerenciar-solicitacoes" element={
-                <ProtectedRoute>
-                  <GerenciarSolicitacoes />
-                </ProtectedRoute>
-              } />
-              <Route path="/cadastrar-medicamento" element={
-                <ProtectedRoute>
-                  <CadastrarMedicamento />
-                </ProtectedRoute>
-              } />
-              <Route path="/gerenciar-usuarios" element={
-                <ProtectedRoute>
-                  <GerenciarUsuarios />
-                </ProtectedRoute>
-              } />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/medicamentos"
+                element={
+                  <ProtectedRoute>
+                    <Medicamentos />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/estoque"
+                element={
+                  <ProtectedRoute>
+                    <Estoque />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/criar-solicitacao"
+                element={
+                  <ProtectedRoute>
+                    <CriarSolicitacao />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/minhas-solicitacoes"
+                element={
+                  <ProtectedRoute>
+                    <MinhasSolicitacoes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/gerenciar-solicitacoes"
+                element={
+                  <ProtectedRoute>
+                    <GerenciarSolicitacoes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/cadastrar-medicamento"
+                element={
+                  <ProtectedRoute>
+                    <CadastrarMedicamento />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/gerenciar-usuarios"
+                element={
+                  <ProtectedRoute>
+                    <GerenciarUsuarios />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/helpdesk"
+                element={
+                  <ProtectedRoute>
+                    <HelpDesk />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
